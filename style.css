@@ -1,118 +1,630 @@
-*{
-    margin: 0;
-    padding: 0;
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
 }
+
+/* Header */
 header {
-  
-    background: linear-gradient(40deg, #f5f7f3 1%, #b5bde3 100%);
-    display: flex;
-    border-radius: 68px;
-    justify-content: space-evenly;
-    align-content: center;
-    font-family: Arial, sans-serif;
+  display: flex;
+  border-radius: 68px;
+  justify-content: space-evenly;
+  align-content: center;
+  font-family: Arial, sans-serif;
 }
 
-body{
-    background-color: #93bef4;
-    overflow: hidden;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+/* Body */
+body {
+  background: linear-gradient(#9dc5e9, #fdf5f3);
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
+/* Footer */
 footer {
-    background-color: #A57982;
-    color: #c8a1d2;
-    font-family: Arial, Helvetica, sans-serif
+  color: #f5c751;
+  font-family: 'Fredoka One';
 }
 
 footer.centered {
   text-align: center;
   padding: 30px 20px;
-  background-color: #93bef4;
-  color: #fff;
-  font-weight: bold;
-  border-top: 5px dashed #fff;
+  background-color: #3aa176;
+  color: #fdf5f3;
+  /* warm yellow that pops but isn't neon */
+  font-weight: 400;
+  /* normal weight (less bold) */
+  letter-spacing: 1.5px;
+  /* a bit more space between letters */
+  border-top: 5px dashed #fdf5f3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  /* subtle contrast boost */
 }
+
 
 footer.centered img {
   display: block;
-  margin: 15px auto 0;
-  width: 120px;
+  margin: 40px auto 0;
+  width: 400px;
   border-radius: 50%;
   border: 3px solid #fff;
-  
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+/* Header text */
 header h1 {
   font-family: 'Luckiest Guy', cursive;
-  font-size: 3rem;
-  color: #ff4b4b;
+  font-size: 10rem;
+  color: #f15e3d;
   text-align: center;
-  letter-spacing: 2px;
-}
-
-header h1.rainbow {
-  white-space: nowrap
+  letter-spacing: 3px;
 }
 
 header p {
   font-size: 1.2rem;
-  align-content: center
+  align-content: center;
 }
 
-.firetruck {
+#greeting {
+  font-family: 'Fredoka One', cursive;
+  color: #fdf5f3;
+  text-align: center;
+  margin-top: 5px;
+  font-size: 1.5rem;
+}
+
+
+
+
+/* --- Truck Section Layout --- */
+
+.truck-gallery {
   position: relative;
-  width: 180px;
-  height: 100px;
-  background-color: red;
-  border-radius: 10px;
-  margin: 50px auto;
-  cursor: pointer;
-  transition: transform 3s linear;
+  height: 500px;
+  /* Scene height */
+  overflow: hidden;
+  background: transparent;
 }
 
-.truck-body {
-  width: 180px;
-  height: 100px;
-  background-color: red;
-  border-radius: 10px;
+.truck-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.light {
+/* Ground */
+.ground {
   position: absolute;
-  top: -10px;
-  left: 80px;
-  width: 20px;
-  height: 10px;
-  background-color: grey;
-  border-radius: 2px;
-  transition: background-color 0.3s ease;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: #424342;
+  z-index: 1;
+}
+
+.square {
+  position: absolute;
+  bottom: 100px;
+  width: 30px;
+  height: 70px;
+  background: #196f3d;
+  left: 80%;
+  transform: translateX(-50%);
+  transition: bottom 1s, opacity 1s;
+  z-index: 10;
+}
+
+.square,
+.fire,
+.smoke {
+  z-index: 2;
+  /* <-- ensure these are above the ground */
+}
+
+/* --- Base Truck Style --- */
+.truck {
+  position: absolute;
+  bottom: 115px;
+  /* Position relative to .truck-scene */
+  width: 180px;
+  height: 100px;
+  border-radius: 10px;
+  transition: transform 2s linear;
+  z-index: 1;
 }
 
 .wheel {
   position: absolute;
   bottom: -15px;
-  width: 30px;
-  height: 30px;
-  background-color: black;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(77, 77, 79);
   border-radius: 50%;
 }
 
-.wheel1 { left: 20px; }
-.wheel2 { right: 20px; }
+.wheel1,
+.wheel.left {
+  left: 15px;
+}
 
-.firetruck.active {
-  transform: translateX(600px);
+.wheel2,
+.wheel.right {
+  right: 15px;
+}
+
+/* --- Firetruck facing right --- */
+.firetruck {
+  position: absolute;
+  bottom: 115px;
+  left: 400px;
+  width: 180px;
+  height: 100px;
+  background: #f15e3d;
+  border-radius: 10px 10px 5px 5px;
+  cursor: pointer;
+  transition: transform 3s linear;
+  box-shadow: inset 10px 0 #ed431c, 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+/* top flashing light bar */
+.light {
+  position: absolute;
+  top: -14px;
+  right: 60px;
+  /* moved to align with cab */
+  width: 60px;
+  height: 10px;
+  background: #666;
+  border-radius: 3px;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .firetruck.active .light {
-  background-color: yellow;
-  box-shadow: 0 0 20px 5px yellow;
+  background: yellow;
+  box-shadow: 0 0 20px 5px rgba(255, 255, 0, 0.8);
+}
+
+/* cab window on the right side now */
+.cab-window {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 45px;
+  height: 35px;
+  background: #9dc5e9;
+  border: 3px solid #fff;
+  border-radius: 3px;
+}
+
+/* ladder moved to left side */
+.ladder {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  width: 90px;
+  height: 20px;
+  background: repeating-linear-gradient(90deg,
+      #eee 0 10px,
+      #bbb 10px 20px);
+  border-radius: 3px;
+}
+
+/* water spray (still emits forward) */
+.water-spray {
+  position: absolute;
+  top: 40px;
+  right: -70px;
+  width: 60px;
+  height: 12px;
+  background: radial-gradient(circle at left, #a8dfff, transparent 70%);
+  border-radius: 5px;
+  opacity: 0;
+  transform-origin: left center;
+  animation: spray 0.5s infinite linear;
+}
+
+@keyframes spray {
+  0% {
+    transform: scaleX(0.3);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(0.3);
+    opacity: 0.4;
+  }
 }
 
 
+
+/* --- Bulldozer base --- */
+.bulldozer {
+  position: absolute;
+  bottom: 115px;
+  left: 600px;
+  width: 180px;
+  height: 100px;
+  background: #fbb91a;
+  border-radius: 10px 10px 5px 5px;
+  box-shadow: inset 10px 0 #dc9b05, 0 2px 4px rgba(0, 0, 0, 0.3);
+  /* ⬅ left shading like the trucks */
+  cursor: pointer;
+  transition: transform 3s linear;
+  z-index: 2;
+}
+
+/* --- Add a window (like other trucks) --- */
+.bulldozer .window {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: #aee1f9;
+  border: 3px solid #fff;
+  border-radius: 3px;
+}
+
+
+/* Bulldozer blade */
+.blade {
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+  width: 50px;
+  height: 50px;
+  background: #dc9b05;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+
+.blade::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  /* attach to bottom edge */
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: #dc9b05;
+  /* darker yellow edge */
+  border-radius: 2px;
+
+  /* make it slope forward/downward */
+  transform: rotate(15deg) translateX(8px);
+  transform-origin: left bottom;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  /* adds subtle shadow for depth */
+}
+
+
+
+/* The vertical side bar (attaches to scoop) */
+.side-bar {
+  position: absolute;
+  right: 0;
+  /* attach to right side of scoop */
+  top: -25px;
+  width: 10px;
+  height: 80px;
+  background: #dc9b05;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Small lift effect when bulldozer pushes */
+.bulldozer.active .blade {
+  transform: rotate(-8deg) translateY(-5px);
+}
+
+
+/* Small blade lift effect */
+.bulldozer.active .blade {
+  transform: rotate(-10deg);
+}
+
+/* --- Bulldozer wheels & treads --- */
+
+/* Bigger wheels */
+.bulldozer .wheel {
+  bottom: -15px;
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border: 4px solid #111;
+  border-radius: 50%;
+  box-shadow: inset 0 0 5px #000;
+  z-index: 2;
+}
+
+/* wheel positions */
+.bulldozer .wheel.left {
+  left: 15px;
+}
+
+.bulldozer .wheel.middle {
+  left: 70px;
+}
+
+.bulldozer .wheel.right {
+  left: 125px;
+}
+
+/* continuous tread wrapper */
+.bulldozer::before {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 5px;
+  width: 180px;
+  /* covers all 3 wheels */
+  height: 60px;
+  border-radius: 30px;
+  background: repeating-linear-gradient(90deg,
+      #222 0 8px,
+      #444 8px 16px);
+  z-index: 1;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* subtle “move” illusion when active */
+@keyframes treadMove {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -32px;
+  }
+}
+
+.bulldozer.active::before {
+  animation: treadMove 0.3s linear infinite;
+}
+
+/* --- Garbage Truck (facing right) --- */
+.garbage-truck {
+  position: absolute;
+  bottom: 115px;
+  left: 200px;
+  width: 180px;
+  height: 100px;
+  background: linear-gradient(to bottom, #2ecc71 0%, #27ae60 100%);
+  border-radius: 10px 10px 5px 5px;
+  box-shadow: inset 10px 0 #1e8449, 0 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 3s linear;
+  z-index: 2;
+}
+
+.garbage-truck .wheel {
+  position: absolute;
+  bottom: -18px;
+  /* pushes wheels to rest just on the ground */
+  width: 35px;
+  /* bigger wheel */
+  height: 35px;
+  background: #333;
+  border-radius: 50%;
+  border: 4px solid #111;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.garbage-truck .wheel.left {
+  left: 10px;
+}
+
+.garbage-truck .wheel.middle {
+  left: 55px;
+}
+
+/* roughly centered */
+.garbage-truck .wheel.right {
+  right: 10px;
+}
+
+
+/* cab section now on the right */
+.garbage-truck::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 55px;
+  height: 80px;
+  background: #fdf5f3;
+  border-radius: 0 5px 5px 0;
+  box-shadow: inset -4px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* window on the right cab */
+.garbage-truck::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  width: 30px;
+  height: 25px;
+  background: #aee1f9;
+  border: 3px solid #fff;
+  border-radius: 3px;
+}
+
+/* mechanical arm on right side of cab */
+.garbage-arm {
+  position: absolute;
+  width: 12px;
+  height: 50px;
+  background: #196f3d;
+  top: 10px;
+  left: 30px;
+  border-radius: 5px;
+  transform-origin: top right;
+  transition: transform 1s ease-in-out;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.garbage-arm::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  background: #145a32;
+  border-radius: 50%;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+/* lighter tint while lifting */
+.garbage-truck.active {
+  background: linear-gradient(to bottom, #58d68d 0%, #239b56 100%);
+}
+
+/* --- The garbage can --- */
+.square {
+  position: absolute;
+  bottom: 100px;
+  width: 30px;
+  height: 70px;
+  background: #196f3d;
+  left: 80%;
+  transform: translateX(-50%);
+  transition: bottom 1s cubic-bezier(0.25, 1.25, 0.5, 1);
+}
+
+/* 🔥 Fire grows and flickers */
+.fire {
+  position: absolute;
+  bottom: 130px;
+  left: 80%;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 80%, #ff4500, #ff9900 60%, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.5);
+  z-index: 5;
+}
+
+@keyframes flickerGrow {
+  0% {
+    transform: translateX(-50%) scale(0.5) rotate(0deg);
+    opacity: 0.6;
+  }
+
+  25% {
+    transform: translateX(-50%) scale(0.7) rotate(2deg);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: translateX(-50%) scale(0.9) rotate(-2deg);
+    opacity: 1;
+  }
+
+  75% {
+    transform: translateX(-50%) scale(1.1) rotate(3deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1.2) rotate(-3deg);
+    opacity: 0.8;
+  }
+}
+
+.fire.active {
+  opacity: 1;
+  animation: flickerGrow 2.5s forwards;
+  /* grow over time */
+}
+
+
+@keyframes flicker {
+  0% {
+    transform: translateX(-50%) scale(0.5) rotate(0deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translateX(-50%) scale(0.6) rotate(3deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-50%) scale(0.5) rotate(-3deg);
+    opacity: 0.8;
+  }
+}
+
+.fire.active {
+  opacity: 1;
+  animation: flicker 0.2s infinite;
+}
+
+
+/* --- Centered Utility --- */
 .centered {
-    text-align: center;
+  text-align: center;
+}
+
+/* ☁️ Puff of smoke after the fire is gone */
+.smoke {
+  position: absolute;
+  bottom: 150px;
+  left: 80%;
+  /* same horizontal as the fire */
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 50% 50%, rgba(200, 200, 200, 0.9), rgba(150, 150, 150, 0.7) 60%, transparent 80%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.5);
+  z-index: 5;
+  /* force it above the ground and trucks */
+  pointer-events: none;
+  /* ensure it doesn't block clicks */
+}
+
+@keyframes puff {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5) translateY(0);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) scale(0.7) translateY(-5px);
+  }
+
+  70% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1) translateY(-20px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.3) translateY(-40px);
+  }
+}
+
+.smoke.active {
+  animation: puff 2s ease-out forwards;
+  /* slower + visible */
+  opacity: 1;
+  /* show instantly when active */
+}
+
+/* ensure square stays in front of all trucks */
+.square {
+  z-index: 4 !important;
 }

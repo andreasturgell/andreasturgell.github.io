@@ -2,60 +2,80 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truck Time!</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truck Time!</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 </head>
 
-        
-    <header>
-        <div class="intro">
-            <h1 class="rainbow">
-    <span style="color:#FF595E">T</span>
-    <span style="color:#FFCA3A">R</span>
-    <span style="color:#8AC926">U</span>
-    <span style="color:#1982C4">C</span>
-    <span style="color:#6A4C93">K</span>
-    <span style="color:#FF595E"> </span>
-    <span style="color:#FFCA3A">T</span>
-    <span style="color:#8AC926">I</span>
-    <span style="color:#1982C4">M</span>
-    <span style="color:#6A4C93">E</span>
-    <span style="color:#FF595E">!</span></h1>
-            <p style="text-align: center;">Click a truck to see it in action!</p>
-        </div>
-      
-        </header>
+<body>
+  <header>
+    <div class="intro">
+      <h1 class="rainbow"><span style="color:#FF595E">TRUCK TIME!</span></h1>
+     <div id="greeting"></div>
+    </div>
+  </header>
 
-<div id="greeting"></div>
 
-<main>
-    <section class="truck-gallery">
-        <h2>Pick Your Truck</h2>
-        <div class="firetruck" id="firetruck">
-        <div class="truck-body"></div>
-        <div class="light"></div>
-        <div class="wheel wheel1"></div>
-        <div class="wheel wheel2"></div>
+<main> <section class="truck-gallery"> <div class="truck-scene"> 
+
+<!-- Firetruck -->
+<div class="firetruck" id="firetruck">
+  <div class="light"></div>
+  <div class="cab-window"></div>
+  <div class="ladder"></div>
+  <div class="hose"></div>
+  <div class="wheel left"></div>
+  <div class="wheel right"></div>
 </div>
-        </section>
 
 
-<footer class="centered">
-     Made with ❤️ for Bill and Ted
-     <img src="images/bill-and-ted.jpg" alt=" Bill and Ted" width="300">
-    </a>
-</footer>
 
-    <script src="index.js"></script>
-    <script src="script.js"></script>
+<!-- Bulldozer -->
+<div class="bulldozer" id="bulldozer">
+  <div class="window"></div>
+  <div class="blade">
+    <div class="side-bar"></div>
+  </div>
+  <div class="wheel left"></div>
+  <div class="wheel middle"></div>
+  <div class="wheel right"></div>
+</div>
+
+
+
+<!-- Garbage Truck --> 
+<div id="garbageTruck" class="truck garbage-truck">
+<div class="stripe"></div>
+<div class="garbage-arm"></div>
+<div class="wheel left"></div>
+<div class="wheel middle"></div>
+<div class="wheel right"></div>
+</div>
+
+<!-- Square -->
+<div id="square" class="square"></div>
+
+<!-- Fire & Smoke -->
+<div id="fire" class="fire"></div>
+<div id="smoke" class="smoke"></div>
+
+<!-- Ground -->
+<div class="ground"></div>
+
+
+    </div>
+  </section>
+</main>
+
+  <footer class="centered">
+    Made with ❤️ for Bill and Ted
+    <img src="images/bill-and-ted.jpg" alt="Bill and Ted" width="800">
+  </footer>
+
+  <script src="index.js"></script>
+  <script src="script.js"></script>
 </body>
-
-
-
 </html>
