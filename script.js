@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const active = firetruck.classList.toggle('active');
     if (active) {
       fireSound.currentTime = 0;
-      fireSound.play().catch(() => {});
+      fireSound.play().catch(() => { });
       fire.classList.add('active');
       square.style.background = '#f4c93dff';
       firetruck.style.transform = 'translateX(43vw)';
@@ -63,33 +63,57 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* 🚛 Garbage truck */
+  /* ---------------------------------
+     🚛 Garbage Truck Logic — plays full sound clip
+  ---------------------------------- */
   garbageTruck.addEventListener('click', () => {
-    garbageTruck.style.transition = 'transform 3s linear';
+
+    // Start driving smoothly toward the can
+    garbageTruck.style.transition = 'transform 2s linear';
     garbageTruck.style.transform = 'translateX(63vw)';
+
+    // Wait for it to reach the can (2s)
     setTimeout(() => {
+
+      // Pause truck movement by removing transition
       garbageTruck.style.transition = 'none';
       void garbageTruck.offsetWidth;
+
+      // Little pause before lifting
       setTimeout(() => {
+
+        // Play ENTIRE garbage sound clip (no early stop!)
         garbageSound.currentTime = 0;
-        garbageSound.play().catch(() => {});
+        garbageSound.play().catch(() => console.log("Garbage sound blocked until user interacts."));
+
+        // Lift animation
+        square.style.transition = 'bottom 1s ease-in-out, opacity 0.8s ease';
         square.style.bottom = '160px';
         square.style.opacity = '0.8';
+        square.style.background = '#45b39d';
         garbageArm.style.transform = 'rotate(-90deg)';
+
+        // Hold can, then lower
         setTimeout(() => {
-          garbageSound.pause();
-          garbageSound.currentTime = 0;
+
           garbageArm.style.transform = 'rotate(0deg)';
           square.style.bottom = '100px';
           square.style.opacity = '1';
+          square.style.background = '#babcbbff';
+
+          // Drive home smoothly
           setTimeout(() => {
             garbageTruck.style.transition = 'transform 2s linear';
             garbageTruck.style.transform = 'translateX(0)';
           }, 800);
+
         }, 1000);
+
       }, 500);
-    }, 3000);
+
+    }, 2000);
   });
+
 
   /* 🚜 Bulldozer */
   bulldozer.addEventListener('click', () => {
